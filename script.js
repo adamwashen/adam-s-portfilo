@@ -1,1 +1,11 @@
-const menu=document.querySelector('.menu'),links=document.querySelector('.links');menu.onclick=()=>links.classList.toggle('open');document.querySelectorAll('.links a').forEach(a=>a.onclick=()=>links.classList.remove('open'));const o=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('show');o.unobserve(x.target)}}),{threshold:.12});document.querySelectorAll('.hero .reveal,article,.note,.about>div:nth-child(2)').forEach(x=>{x.classList.add('reveal');o.observe(x)});document.getElementById('year').textContent=new Date().getFullYear();
+const menuBtn=document.querySelector('.menu-btn');
+const nav=document.querySelector('.nav');
+menuBtn.addEventListener('click',()=>nav.classList.toggle('open'));
+document.querySelectorAll('.nav a').forEach(a=>a.addEventListener('click',()=>nav.classList.remove('open')));
+const sections=document.querySelectorAll('main section');
+const links=document.querySelectorAll('.nav a:not(.social):not(.cta)');
+window.addEventListener('scroll',()=>{
+  let current='';
+  sections.forEach(section=>{if(scrollY>=section.offsetTop-120) current=section.id});
+  links.forEach(link=>link.classList.toggle('active',link.getAttribute('href')==='#'+current));
+});
